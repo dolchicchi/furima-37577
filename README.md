@@ -11,63 +11,61 @@
 | first_name         | string  | null: false               |
 | kana_last_name     | string  | null: false               |
 | kana_first_name    | string  | null: false               |
-| year_of_birth      | integer | null: false               |
-| month_of_birth     | integer | null: false               |
-| date_of_birth      | integer | null: false               |
+| birthday           | date    | null: false               |
 
 
 ### Association
 
 - has_many :items
+- has_many :orders
 
 ## items テーブル
 
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| name          | string     | null: false                    |
-| explanation   | text       | null: false                    |
-| category      | string     | null: false                    |
-| status        | string     | null: false                    |
-| postage       | string     | null: false                    |
-| prefectures   | string     | null: false                    |
-| days_required | string     | null: false                    |
-| price         | integer    | null: false                    |
-| user          | references | null: false, foreign_key: true |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| name             | string     | null: false                    |
+| explanation      | text       | null: false                    |
+| category_id      | integer    | null: false                    |
+| status_id        | integer    | null: false                    |
+| postage_id       | integer    | null: false                    |
+| region_id        | integer    | null: false                    |
+| days_required_id | integer    | null: false                    |
+| price            | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
 
 
 ### Association
 
 - belongs_to :user
-- has_one :settlement
-- has_one :shipping_destination
+- has_one :order
 
 
-## settlements テーブル
+## orders テーブル
 
 | Column       | Type       | Options                        |
 | ------------ | ---------- | ------------------------------ |
-| card_number  | integer    | null: false                    |
-| expiry_month | integer    | null: false                    |
-| expiry_year  | integer    | null: false                    |
+| user         | references | null: false, foreign_key: true |
 | item         | references | null: false, foreign_key: true |
 
 ### Association
 
+- belongs_to :user
 - belongs_to :item
+- has_one :shipping_destination
 
 
 ## shipping_destinations テーブル
 
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| post_code     | string     | null: false                    |
-| prefectures   | string     | null: false                    |
-| city          | string     | null: false                    |
-| address       | string     | null: false                    |
-| building_name | text       |                                |
-| tel           | string     | null: false                    |
-| item          | references | null: false, foreign_key: true |
+| Column         | Type       | Options                        |
+| -------------- | ---------- | ------------------------------ |
+| post_code      | string     | null: false                    |
+| prefecture_id  | string     | null: false                    |
+| city           | string     | null: false                    |
+| address        | string     | null: false                    |
+| building_name  | string     |                                |
+| tel            | string     | null: false                    |
+| order          | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :item
+- belongs_to :order
