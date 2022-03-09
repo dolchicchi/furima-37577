@@ -27,50 +27,25 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Explanation can't be blank")
       end
-      it 'カテゴリーが空だと登録できない' do
-        @item.category_id = ''
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank")
-      end
       it 'カテゴリーのidが1だと登録できない' do
         @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
-      end
-      it '商品状態が空だと登録できない' do
-        @item.status_id = ''
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Status can't be blank")
       end
       it '商品状態のidが1だと登録できない' do
         @item.status_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Status can't be blank")
       end
-      it '配送料が空だと登録できない' do
-        @item.postage_id = ''
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Postage can't be blank")
-      end
       it '配送料のidが1だと登録できない' do
         @item.postage_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Postage can't be blank")
       end
-      it '販売元の地域が空だと登録できない' do
-        @item.region_id = ''
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Region can't be blank")
-      end
       it '販売元の地域のidが1だと登録できない' do
         @item.region_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Region can't be blank")
-      end
-      it '発送までの日数が空だと登録できない' do
-        @item.days_required_id = ''
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Days required can't be blank")
       end
       it '発送までの日数のidが1だと登録できない' do
         @item.days_required_id = 1
