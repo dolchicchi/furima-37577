@@ -14,11 +14,12 @@ class Item < ApplicationRecord
     validates :image
     validates :name
     validates :explanation
-    validates :price, 
-      numericality: { 
-        other_than: 0, 
-        message: 'is invalid. Input half-width characters'}
+    validates :price, umericality: { 
+      other_than: 0, 
+      message: 'is invalid. Input half-width characters'
+    }
   end
+
   with_options numericality: { other_than: 1, message: "can't be blank" } do
     validates :category_id
     validates :status_id
@@ -26,9 +27,10 @@ class Item < ApplicationRecord
     validates :region_id
     validates :days_required_id
   end
-  validates :price, 
-    numericality: { 
-      greater_than_or_equal_to: 300, 
-      less_than_or_equal_to: 9999999,
-      message: "is out of setting range"}
+
+  validates :price, numericality: { 
+    greater_than_or_equal_to: 300, 
+    less_than_or_equal_to: 9999999,
+    message: "is out of setting range"
+  }
 end
