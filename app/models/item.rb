@@ -30,7 +30,7 @@ class Item < ApplicationRecord
   end
 
   validates :price, numericality: { 
-    with: /\A[0-9]+\z/, 
+    only_integer: true, 
     message: 'is invalid. Input half-width characters' 
   }
 end
