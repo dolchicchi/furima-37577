@@ -34,7 +34,6 @@ class ItemsController < ApplicationController
     end
   end
 
-
   private
 
   def params_item
@@ -50,8 +49,6 @@ class ItemsController < ApplicationController
 
   def user_mach
     item = Item.find(params[:id])
-      unless current_user.id == item.user_id
-        redirect_to root_path
-      end
+    redirect_to root_path unless current_user.id == item.user_id
   end
 end
