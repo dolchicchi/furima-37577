@@ -14,7 +14,7 @@ class Item < ApplicationRecord
     validates :image
     validates :name
     validates :explanation
-    validates :price, umericality: { 
+    validates :price, numericality: { 
       other_than: 0, 
       message: 'is invalid. Input half-width characters'
     }

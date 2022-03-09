@@ -24,4 +24,7 @@ class User < ApplicationRecord
     validates :birthday
   end
   validates :password, format: { with: VALID_PASSWORD_REGEX, message: PASSWORD_ERROR }
+
+  #アソシエーション
+  has_many :items
 end
