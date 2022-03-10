@@ -4,17 +4,28 @@ class OrderDestination
                 :city, :address, :building_name, :tel, :order_id
 
   #バリデーション
+  validates :region_id, numericality: {other_than: 1, message: "can't be blank"}
+
   with_options presence: true do
+    validates :token
     validates :user_id
     validates :item_id
-    validates :token
-    validates :post_code
-    validates :region_id, numericality: {other_than: 1, message: "can't be blank"}
+    validates :post_code, format: {
+      with: /\A\d{3}[-]\d{4}\z/,
+      message: "is invalid. Enter it as follows(e.g 123-4567)"
+    }
     validates :city
     validates :address
     validates :tel
-    validates :post_code
   end
+  validates :tel, numericality: {
+    only_integer: true,
+    message: 'is invalid. Input only number'
+  }
+  validates :tel, numericality: {
+    length: { minmum: 10 },
+    message: 'is too short'
+  }
 
   def save
     order = Order.create(
