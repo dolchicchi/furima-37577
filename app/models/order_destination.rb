@@ -22,8 +22,8 @@ class OrderDestination
     only_integer: true,
     message: 'is invalid. Input only number'
   }
-  validates :tel, numericality: {
-    length: { minmum: 10, maximum: 11 },
+  validates :tel, length: { 
+    minimum: 10, maximum: 11,
     message: 'is too short'
   }
 
