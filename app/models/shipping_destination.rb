@@ -1,4 +1,4 @@
 class ShippingDestination < ApplicationRecord
-  #アソシエーション
+  # アソシエーション
   belongs_to :order
 end

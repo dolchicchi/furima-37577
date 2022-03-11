@@ -21,6 +21,7 @@ class OrdersController < ApplicationController
   end
 
   private
+
   def order_destination_params
     params.require(:order_destination).permit(
       :post_code, :region_id, :city, :address, :building_name, :tel
@@ -28,25 +29,21 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']  # 自身のPAY.JPテスト秘密鍵を記述しましょう
     Payjp::Charge.create(
-      amount: Item.find(params[:item_id]).price,  # 商品の値段
-      card: params[:token],    # カードトークン
+      amount: Item.find(params[:item_id]).price, # 商品の値段
+      card: params[:token], # カードトークン
       currency: 'jpy'                 # 通貨の種類（日本円）
     )
   end
 
   def user_check
     item = Item.find(params[:item_id])
-    if item.user_id == current_user.id
-      redirect_to root_path
-    end
+    redirect_to root_path if item.user_id == current_user.id
   end
 
   def sold_check
     item = Item.find(params[:item_id])
-    if item.order != nil
-      redirect_to root_path
-    end
+    redirect_to root_path unless item.order.nil?
   end
 end

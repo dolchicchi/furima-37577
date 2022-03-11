@@ -4,7 +4,6 @@ class ItemsController < ApplicationController
   before_action :user_mach, only: :edit
   before_action :sold_check, only: :edit
 
-
   def index
     @items = Item.includes(:user).order(created_at: :desc)
   end
@@ -63,8 +62,6 @@ class ItemsController < ApplicationController
 
   def sold_check
     item = Item.find(params[:id])
-    if item.order != nil
-      redirect_to root_path
-    end
+    redirect_to root_path unless item.order.nil?
   end
 end
