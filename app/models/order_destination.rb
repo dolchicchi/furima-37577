@@ -1,7 +1,7 @@
 class OrderDestination
   include ActiveModel::Model
   attr_accessor :user_id, :item_id, :token, :post_code, :region_id,
-                :city, :address, :building_name, :tel, :order_id
+                :city, :address, :building_name, :tel
 
   # バリデーション
   validates :region_id, numericality: { other_than: 1, message: "can't be blank" }
