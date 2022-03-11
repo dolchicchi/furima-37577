@@ -69,6 +69,11 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include('Tel is too short')
       end
+      it ' 電話番号に半角数字以外が含まれている場合は保存できない' do
+        @order_destination.tel = Faker::Lorem.characters(number: 11, min_alpha: 1, min_numeric: 10)
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include('Tel is invalid. Input only number')
+      end
       it ' userが紐づいていないと保存できない' do
         @order_destination.user_id = nil
         @order_destination.valid?
