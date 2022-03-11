@@ -3,7 +3,10 @@ require 'rails_helper'
 RSpec.describe OrderDestination, type: :model do
   describe '注文情報の保存' do
     before do
-      @order_destination = FactoryBot.build(:order_destination)
+      user = FactoryBot.create(:user)
+      item = FactoryBot.create(:item)
+      @order_destination = FactoryBot.build(:order_destination, user_id: user.id, item_id: item.id)
+      sleep 0.1
     end
     context '内容に問題ない場合' do
       it 'すべての値が正しく入力されていれば保存できる' do
@@ -60,6 +63,21 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.tel = Faker::Number.between(from: 1, to: 999_999_999)
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include('Tel is too short')
+      end
+      it ' 電話番号は12桁以上だと保存できない' do
+        @order_destination.tel = Faker::Number.number(digits: 12)
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include('Tel is too short')
+      end
+      it ' userが紐づいていないと保存できない' do
+        @order_destination.user_id = nil
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("User can't be blank")
+      end
+      it ' itemが紐づいていないと保存できない' do
+        @order_destination.item_id = nil
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
