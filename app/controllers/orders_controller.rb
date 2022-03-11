@@ -2,14 +2,13 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :user_check, only: :index
   before_action :sold_check, only: :index
-
+  before_action :item_set
+  
   def index
-    @item = Item.find(params[:item_id])
     @order_destination = OrderDestination.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_destination = OrderDestination.new(order_destination_params)
     if @order_destination.valid?
       pay_item
@@ -21,6 +20,10 @@ class OrdersController < ApplicationController
   end
 
   private
+
+    def item_set
+      @item = Item.find(params[:item_id])
+    end
 
   def order_destination_params
     params.require(:order_destination).permit(

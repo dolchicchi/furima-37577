@@ -28,10 +28,7 @@ class OrderDestination
   }
 
   def save
-    order = Order.create(
-      user_id: user_id, item_id: item_id,
-      token: token
-    )
+    order = Order.create(user_id: user_id, item_id: item_id)
 
     shipping_destination = ShippingDestination.create(
       post_code: post_code, region_id: region_id, city: city, building_name: building_name,
